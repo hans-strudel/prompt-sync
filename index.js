@@ -78,7 +78,7 @@ function create(config) {
     var prevComplete;
 
     while (true) {
-      read = fs.readSync(fd, buf, 0, 3);
+      read = fs.readSync(fd, buf, 0, 3)
       if (read == 3) { // received a control sequence
         switch(buf.toString()) {
           case '\u001b[A':  //up arrow
@@ -173,7 +173,7 @@ function create(config) {
         }
       }
       
-      if (char == 127) { //backspace
+      if (char == 127 || (process.platform === 'win32' && char == 8)) { //backspace
         if (!insert) continue;
         str = str.slice(0, insert-1) + str.slice(insert);
         insert--;
